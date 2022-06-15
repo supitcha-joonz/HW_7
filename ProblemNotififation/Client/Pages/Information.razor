@@ -1,0 +1,57 @@
+﻿@page "/information"
+@inject ISystemNoticeService SystemNoticeService
+@inject NavigationManager NavigationManager
+
+
+<PageTitle>Information</PageTitle>
+<h3>Information</h3>
+
+<table class="table">
+     <thead>
+        <tr>
+            <th width="15%">First Name</th>
+            <th width="15%">Last Name</th>
+            <th width="20%">Application Name</th>
+            <th width="15%">Problem</th>
+            <th width="35%">Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var problem in SystemNoticeService.Problems)
+        {
+            <tr>
+            <td width="15%">@problem.FirstName</td>
+            <td width="15%">@problem.LastName</td>
+            <td width="20%">@problem.ApplicationName</td>
+            <td width="15%">@problem.ProblemName</td>
+            <td width="35%">@problem.Description</td>
+            <td>
+                 <button class="btn" background-color="white" @onclick="(() => ShowDetail(problem.Id))"><i class="oi oi-pencil" style="color:orangered"></i> </button>
+
+            </td>
+        </tr>
+        }
+
+    </tbody>
+</table><br />
+
+<button type="button" class="btn btn-primary" @onclick="CreateNewProblem">Create New Information</button>
+
+<br /><br />
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await SystemNoticeService.GetProblem();
+    }
+
+    void ShowDetail(int id)
+    {
+        NavigationManager.NavigateTo($"detail/{id}");
+    }
+    void CreateNewProblem()
+    {
+        NavigationManager.NavigateTo("/detail");
+    }
+
+}

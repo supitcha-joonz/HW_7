@@ -1,0 +1,95 @@
+﻿@page "/detail"
+@page "/detail/{id:int}"
+@inject ISystemNoticeService SystemNoticeService
+
+@if (Id == null)
+{
+    <PageTitle>Fill In Information</PageTitle>
+    <h3>Fill In Information</h3>
+}
+else
+{
+    <PageTitle>Edit Information @problem.FirstName @problem.LastName </PageTitle>
+    <h3>Edit Information : @problem.FirstName @problem.LastName</h3>
+}
+
+<EditForm Model="problem" OnSubmit="HandleSubmit">
+    <br />
+    <div>
+        <label for="firstname">First Name</label>
+        <InputText id="firstname" @bind-Value="problem.FirstName" class="form-control"></InputText>
+    </div><br />
+    <div>
+        <label for="lastname">Last Name</label>
+        <InputText id="lastname" @bind-Value="problem.LastName" class="form-control"></InputText>
+    </div><br />
+    <div>
+        <label for="appname">Application Name</label>
+        <InputText id="appname" @bind-Value="problem.ApplicationName" class="form-control"></InputText>
+    </div><br />
+    <div>
+        <label for="problemname">Problem</label>
+        <InputText id="problemname" @bind-Value="problem.ProblemName" class="form-control"></InputText>
+    </div><br />
+    <div>
+        <label for="description">Description</label>
+        <textarea @bind-value="problem.Description"  @bind-value:event="oninput"  class="form-control" rows="5"></textarea>
+        @*<InputText id="description" @bind-Value="problem.Description" class="form-control"></InputText>*@
+    </div><br />
+
+    
+    
+    <br />
+    <button type="submit" class="btn btn-success">@btnText</button>
+    <button type="button" class="btn btn-danger" @onclick="DeleteProblem">Delete Information</button>
+    
+</EditForm>
+
+<br /><br />
+
+
+
+@code {
+    [Parameter]
+    public int? Id { get; set; }
+
+    string btnText = string.Empty;
+
+    Problem problem = new Problem();
+
+    protected override async Task OnInitializedAsync()
+    {
+        btnText = Id == null ? "Save Information" : "Update Information";
+        await SystemNoticeService.GetProblem();
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id == null)
+        {
+
+        }
+        else
+        {
+            problem = await SystemNoticeService.GetSingleProblem((int)Id);
+        }
+    }
+    async Task HandleSubmit()
+    {
+        if (Id == null)
+        {
+            await SystemNoticeService.CreateProblem(problem);
+        }
+        else
+        {
+            await SystemNoticeService.UpdateProblem(problem);
+        }
+
+    }
+
+    async Task DeleteProblem()
+    {
+        await SystemNoticeService.DeleteProblem(problem.Id);
+    }
+
+}

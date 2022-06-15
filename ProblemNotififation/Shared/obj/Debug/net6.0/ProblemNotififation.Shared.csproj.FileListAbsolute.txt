@@ -1,0 +1,12 @@
+D:\Users\cf303956\source\repos\HW_7\ProblemNotififation\ProblemNotififation\Shared\bin\Debug\net6.0\ProblemNotififation.Shared.deps.json
+D:\Users\cf303956\source\repos\HW_7\ProblemNotififation\ProblemNotififation\Shared\bin\Debug\net6.0\ProblemNotififation.Shared.dll
+D:\Users\cf303956\source\repos\HW_7\ProblemNotififation\ProblemNotififation\Shared\bin\Debug\net6.0\ProblemNotififation.Shared.pdb
+D:\Users\cf303956\source\repos\HW_7\ProblemNotififation\ProblemNotififation\Shared\obj\Debug\net6.0\ProblemNotififation.Shared.csproj.AssemblyReference.cache
+D:\Users\cf303956\source\repos\HW_7\ProblemNotififation\ProblemNotififation\Shared\obj\Debug\net6.0\ProblemNotififation.Shared.GeneratedMSBuildEditorConfig.editorconfig
+D:\Users\cf303956\source\repos\HW_7\ProblemNotififation\ProblemNotififation\Shared\obj\Debug\net6.0\ProblemNotififation.Shared.AssemblyInfoInputs.cache
+D:\Users\cf303956\source\repos\HW_7\ProblemNotififation\ProblemNotififation\Shared\obj\Debug\net6.0\ProblemNotififation.Shared.AssemblyInfo.cs
+D:\Users\cf303956\source\repos\HW_7\ProblemNotififation\ProblemNotififation\Shared\obj\Debug\net6.0\ProblemNotififation.Shared.csproj.CoreCompileInputs.cache
+D:\Users\cf303956\source\repos\HW_7\ProblemNotififation\ProblemNotififation\Shared\obj\Debug\net6.0\ProblemNotififation.Shared.dll
+D:\Users\cf303956\source\repos\HW_7\ProblemNotififation\ProblemNotififation\Shared\obj\Debug\net6.0\refint\ProblemNotififation.Shared.dll
+D:\Users\cf303956\source\repos\HW_7\ProblemNotififation\ProblemNotififation\Shared\obj\Debug\net6.0\ProblemNotififation.Shared.pdb
+D:\Users\cf303956\source\repos\HW_7\ProblemNotififation\ProblemNotififation\Shared\obj\Debug\net6.0\ref\ProblemNotififation.Shared.dll
