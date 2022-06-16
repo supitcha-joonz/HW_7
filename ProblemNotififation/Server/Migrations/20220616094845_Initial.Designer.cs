@@ -11,7 +11,7 @@ using ProblemNotififation.Server.Data;
 namespace ProblemNotififation.Server.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220615065915_Initial")]
+    [Migration("20220616094845_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,41 @@ namespace ProblemNotififation.Server.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("ProblemNotififation.Shared.Application", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Applications");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Oioi",
+                            Name = "SmartCare"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "oioi",
+                            Name = "Tidlor"
+                        });
+                });
+
             modelBuilder.Entity("ProblemNotififation.Shared.Problem", b =>
                 {
                     b.Property<int>("Id")
@@ -31,9 +66,8 @@ namespace ProblemNotififation.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("ApplicationName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ApplicationId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -53,13 +87,15 @@ namespace ProblemNotififation.Server.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ApplicationId");
+
                     b.ToTable("Problems");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            ApplicationName = "Smartcare",
+                            ApplicationId = 1,
                             Description = "Login เข้าใช้งานไม่ได้",
                             FirstName = "Supitcha",
                             LastName = "Jampathong",
@@ -68,12 +104,23 @@ namespace ProblemNotififation.Server.Migrations
                         new
                         {
                             Id = 2,
-                            ApplicationName = "TidlorTidlen",
+                            ApplicationId = 2,
                             Description = "เมื่อวานใช้งานได้ปกติ แต่วันนี้ตอนเช้า login ด้วย password ใหม่แล้วขึ้น popup error",
                             FirstName = "Joonz",
                             LastName = "OiOi",
                             ProblemName = "App เปิดไม่ขึ้น"
                         });
+                });
+
+            modelBuilder.Entity("ProblemNotififation.Shared.Problem", b =>
+                {
+                    b.HasOne("ProblemNotififation.Shared.Application", "Application")
+                        .WithMany()
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Application");
                 });
 #pragma warning restore 612, 618
         }

@@ -23,10 +23,23 @@ else
         <label for="lastname">Last Name</label>
         <InputText id="lastname" @bind-Value="problem.LastName" class="form-control"></InputText>
     </div><br />
-    <div>
+   @* <div>
         <label for="appname">Application Name</label>
         <InputText id="appname" @bind-Value="problem.ApplicationName" class="form-control"></InputText>
+    </div><br />*@
+
+    <div>
+         <label>Application</label>
+         <InputSelect @bind-Value="problem.ApplicationId" class="form-select">
+            @foreach (var application in SystemNoticeService.Applications)
+            {
+                <option value="@application.Id">@application.Name</option>
+            }
+        </InputSelect>
+         
+
     </div><br />
+
     <div>
         <label for="problemname">Problem</label>
         <InputText id="problemname" @bind-Value="problem.ProblemName" class="form-control"></InputText>
@@ -55,18 +68,23 @@ else
 
     string btnText = string.Empty;
 
-    Problem problem = new Problem();
+    Problem problem = new Problem { Application = new Application() };
+
+    //Problem problem = new Problem();
 
     protected override async Task OnInitializedAsync()
     {
         btnText = Id == null ? "Save Information" : "Update Information";
-        await SystemNoticeService.GetProblem();
+        //await SystemNoticeService.GetProblem();
+         await SystemNoticeService.GetApplication();
     }
 
     protected override async Task OnParametersSetAsync()
     {
         if (Id == null)
         {
+            problem.Application = SystemNoticeService.Applications[0];
+            problem.ApplicationId = problem.Application.Id;
 
         }
         else

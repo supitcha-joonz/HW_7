@@ -18,7 +18,8 @@ namespace ProblemNotififation.Server.Controllers
 
         public async Task<ActionResult<List<Problem>>> GetProblems() {
 
-            var problems = await _context.Problems.ToListAsync();
+           
+            var problems = await _context.Problems.Include(pr => pr.Application).ToListAsync();
             return Ok(problems);
         }
 
@@ -27,6 +28,7 @@ namespace ProblemNotififation.Server.Controllers
         public async Task<ActionResult<Problem>> GetSingleProblem(int id) {
             
             var problem = await _context.Problems
+                .Include(p => p.Application)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             if (problem == null) {
@@ -42,7 +44,8 @@ namespace ProblemNotififation.Server.Controllers
 
         public async Task<ActionResult<List<Problem>>> Create(Problem pro)
         {
-          
+
+            pro.Application = null;
             _context.Problems.Add(pro);
             await _context.SaveChangesAsync();
 
@@ -55,13 +58,14 @@ namespace ProblemNotififation.Server.Controllers
         public async Task<ActionResult<List<Problem>>> Update(Problem pro, int id)
         {
             var dbProblem = await _context.Problems
+                .Include(p => p.Application)
                 .FirstOrDefaultAsync(p => p.Id == id);
             if (dbProblem == null)
                 return NotFound("Sorry, but no hero for you. :/");
 
             dbProblem.FirstName = pro.FirstName;
             dbProblem.LastName = pro.LastName;
-            dbProblem.ApplicationName = pro.ApplicationName;
+            dbProblem.ApplicationId = pro.ApplicationId;
             dbProblem.ProblemName = pro.ProblemName;
             dbProblem.Description = pro.Description;
 
@@ -77,6 +81,7 @@ namespace ProblemNotififation.Server.Controllers
         public async Task<ActionResult<List<Problem>>> Delete(int id)
         {
             var dbProblem = await _context.Problems
+                .Include(p => p.Application)
                 .FirstOrDefaultAsync(p => p.Id == id);
             if (dbProblem == null)
                 return NotFound("Sorry, but no hero for you. :/");
@@ -93,7 +98,7 @@ namespace ProblemNotififation.Server.Controllers
         private async Task<List<Problem>> GetDbProblems()
         {
 
-            return await _context.Problems.ToListAsync();
+            return await _context.Problems.Include(p => p.Application).ToListAsync();
 
         }
 

@@ -16,6 +16,8 @@ namespace ProblemNotififation.Client.Services.SystemProblemService
         }
         public List<Problem> Problems { get; set; } = new List<Problem>();
 
+        public List<Application> Applications { get; set; } = new List<Application>();
+
         public async Task CreateProblem(Problem pro)
         {
             var result = await _http.PostAsJsonAsync("api/problemnotice", pro);
@@ -41,6 +43,15 @@ namespace ProblemNotififation.Client.Services.SystemProblemService
             var result = await _http.GetFromJsonAsync<List<Problem>>("api/problemnotice");
             if (result != null) {
                 Problems = result;
+            }
+        }
+
+        public async Task GetApplication()
+        {
+            var result = await _http.GetFromJsonAsync<List<Application>>("api/applications");
+            if (result != null)
+            {
+                Applications = result;
             }
         }
 

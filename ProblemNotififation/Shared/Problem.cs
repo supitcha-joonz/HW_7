@@ -11,8 +11,11 @@ namespace ProblemNotififation.Shared
         public int Id { get; set; }
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
-        public string ApplicationName { get; set; } = string.Empty;
+        //public string ApplicationName { get; set; } = string.Empty;
         public string ProblemName { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
+
+        public Application? Application { get; set; }
+        public int ApplicationId { get; set; }
     }
 }
