@@ -35,7 +35,8 @@ namespace ProblemNotififation.Server.Data
 
             modelBuilder.Entity<Application>().HasData(
                 new Application { Id = 1, Name = "SmartCare", Description = "Oioi"},
-                new Application { Id = 2, Name = "Tidlor", Description = "oioi" }
+                new Application { Id = 2, Name = "Tidlor", Description = "oioi" },
+                new Application { Id = 3, Name = "Botnoi", Description = "nono" }
             );
 
         }
