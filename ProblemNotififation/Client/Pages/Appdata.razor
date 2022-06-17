@@ -1,0 +1,84 @@
+﻿@page "/appdetail"
+@page "/appdetail/{id:int}"
+@inject ISystemNoticeService SystemNoticeService
+
+@if (Id == null)
+{
+    <PageTitle>New Application</PageTitle>
+    <h3>New Application</h3>
+}
+else
+{
+    <PageTitle>Edit Application @app.Name</PageTitle>
+    <h3>Edit Application : @app.Name</h3>
+}
+
+<EditForm Model="app" OnSubmit="HandleSubmit">
+    <br />
+    <div>
+        <b><label for="appname">Application Name</label></b>
+        <InputText id="appname" @bind-Value="app.Name" class="form-control"></InputText>
+    </div><br />
+    <div>
+        <b><label for="decsname">Description</label></b>
+        <InputText id="descname" @bind-Value="app.Description" class="form-control"></InputText>
+    </div><br />
+
+    <button type="submit" class="btn btn-success">@btnText</button>
+    <button type="button" class="btn btn-danger" @onclick="DeleteApp">Delete Application</button>
+    
+</EditForm>
+
+<br /><br />
+
+
+@code {
+
+    [Parameter]
+
+    public int? Id { get; set; }
+
+    string btnText = string.Empty;
+
+    Application app = new Application();
+
+    protected override async Task OnInitializedAsync()
+    {
+        btnText = Id == null ? "Save Application" : "Update Application";
+        //await SystemNoticeService.GetProblem();
+         await SystemNoticeService.GetApplication();
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id == null)
+        {
+            
+
+        }
+        else
+        {
+            app = await SystemNoticeService.GetSingleApplication((int)Id);
+        }
+    }
+    async Task HandleSubmit()
+    {
+        if (Id == null)
+        {
+            await SystemNoticeService.CreateApplication(app);
+        }
+        else
+        {
+            await SystemNoticeService.UpdateApplication(app);
+        }
+
+    }
+
+    async Task DeleteApp()
+    {
+        await SystemNoticeService.DeleteApplication(app.Id);
+    }
+
+
+
+}

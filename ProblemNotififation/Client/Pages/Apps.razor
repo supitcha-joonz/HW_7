@@ -1,0 +1,58 @@
+﻿@page "/appfeed"
+@inject ISystemNoticeService SystemNoticeService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Application</PageTitle>
+<h3>Application</h3>
+
+<br />
+
+<table class="table" style="width:100%">
+     <thead>
+        <tr>
+            
+            <th width="20%" style="text-align:center">ID</th>
+            <th width="100%" style="text-align:center">Name</th>
+            
+        </tr>
+       
+    </thead>
+    <tbody>
+        
+        @foreach (var app in SystemNoticeService.Applications)
+        {
+           
+            <tr>
+            <td width="20%" style="text-align:center">@app.Id</td>
+            <td width="100%" style="text-align:center">@app.Name</td>
+           
+            <td>
+                 <button class="btn" background-color="transparent" @onclick="(() => ShowdataApp(app.Id))"><i class="oi oi-pencil" style="color:orangered; width:10px; height:10px; font-size:15px;"></i> </button>
+
+            </td>
+        </tr>
+        }
+
+    </tbody>
+</table><br />
+
+<button type="button" class="btn btn-primary" @onclick="CreateNewApp">Create New Application</button>
+
+<br /><br />
+
+@code {
+
+    protected override async Task OnInitializedAsync()
+    {
+        await SystemNoticeService.GetApplication();
+    }
+
+    void ShowdataApp(int id)
+    {
+        NavigationManager.NavigateTo($"appdetail/{id}");
+    }
+    void CreateNewApp()
+    {
+        NavigationManager.NavigateTo("/appdetail");
+    }
+}

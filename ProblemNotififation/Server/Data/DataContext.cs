@@ -35,8 +35,7 @@ namespace ProblemNotififation.Server.Data
 
             modelBuilder.Entity<Application>().HasData(
                 new Application { Id = 1, Name = "SmartCare", Description = "Oioi"},
-                new Application { Id = 2, Name = "Tidlor", Description = "oioi" },
-                new Application { Id = 3, Name = "Botnoi", Description = "nono" }
+                new Application { Id = 2, Name = "Tidlor", Description = "oioi" }
             );
 
         }
@@ -44,6 +43,7 @@ namespace ProblemNotififation.Server.Data
         public DbSet<Problem> Problems { get; set; }
 
         public DbSet<Application> Applications { get; set; }
+
 
 
     }

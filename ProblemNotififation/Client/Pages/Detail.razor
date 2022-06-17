@@ -16,11 +16,11 @@ else
 <EditForm Model="problem" OnSubmit="HandleSubmit">
     <br />
     <div>
-        <label for="firstname">First Name</label>
+        <b><label for="firstname">First Name</label></b>
         <InputText id="firstname" @bind-Value="problem.FirstName" class="form-control"></InputText>
     </div><br />
     <div>
-        <label for="lastname">Last Name</label>
+        <b><label for="lastname">Last Name</label></b>
         <InputText id="lastname" @bind-Value="problem.LastName" class="form-control"></InputText>
     </div><br />
    @* <div>
@@ -29,7 +29,7 @@ else
     </div><br />*@
 
     <div>
-         <label>Application</label>
+         <b><label>Application</label></b>
          <InputSelect @bind-Value="problem.ApplicationId" class="form-select">
             @foreach (var application in SystemNoticeService.Applications)
             {
@@ -41,11 +41,11 @@ else
     </div><br />
 
     <div>
-        <label for="problemname">Problem</label>
+        <b><label for="problemname">Problem</label></b>
         <InputText id="problemname" @bind-Value="problem.ProblemName" class="form-control"></InputText>
     </div><br />
     <div>
-        <label for="description">Description</label>
+        <b><label for="description">Description</label></b>
         <textarea @bind-value="problem.Description"  @bind-value:event="oninput"  class="form-control" rows="5"></textarea>
         @*<InputText id="description" @bind-Value="problem.Description" class="form-control"></InputText>*@
     </div><br />

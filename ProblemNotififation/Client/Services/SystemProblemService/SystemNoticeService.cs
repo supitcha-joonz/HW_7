@@ -69,5 +69,40 @@ namespace ProblemNotififation.Client.Services.SystemProblemService
             var result = await _http.PutAsJsonAsync($"api/problemnotice/{pro.Id}", pro);
             await SetProblems(result);
         }
+
+
+        //Application
+        public async Task<Application> GetSingleApplication(int id)
+        {
+            var result = await _http.GetFromJsonAsync<Application>($"api/applications/{id}");
+            if (result != null)
+                return result;
+            throw new Exception("Not Found!");
+        }
+
+        public async Task CreateApplication(Application app)
+        {
+            var result = await _http.PostAsJsonAsync("api/applications", app);
+            await SetApplications(result);
+        }
+
+        private async Task SetApplications(HttpResponseMessage result)
+        {
+            var response = await result.Content.ReadFromJsonAsync<List<Application>>();
+            Applications = response;
+            _navigationManager.NavigateTo("appfeed");
+        }
+
+        public async Task UpdateApplication(Application app)
+        {
+            var result = await _http.PutAsJsonAsync($"api/applications/{app.Id}", app);
+            await SetApplications(result);
+        }
+
+        public  async Task DeleteApplication(int id)
+        {
+            var result = await _http.DeleteAsync($"api/applications/{id}");
+            await SetApplications(result);
+        }
     }
 }

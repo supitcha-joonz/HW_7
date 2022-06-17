@@ -15,5 +15,11 @@ namespace ProblemNotififation.Client.Services.SystemProblemService
         Task CreateProblem(Problem pro);
         Task UpdateProblem(Problem pro);
         Task DeleteProblem(int id);
+
+        Task<Application> GetSingleApplication(int id);
+
+        Task CreateApplication(Application app);
+        Task UpdateApplication(Application app);
+        Task DeleteApplication(int id);
     }
 }
